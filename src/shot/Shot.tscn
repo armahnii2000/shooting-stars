@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="PhysicsMaterial" path="res://assets/shot_physics_material.tres" id="1"]
+[ext_resource type="Script" path="res://src/shot/Shot.gd" id="2"]
+
+[node name="Shot" type="RigidBody2D"]
+physics_material_override = ExtResource("1")
+contact_monitor = true
+max_contacts_reported = 8
+script = ExtResource("2")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
