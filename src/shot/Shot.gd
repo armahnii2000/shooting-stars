@@ -23,6 +23,10 @@ const TIMER_GAMEOVER = 3.0 * 2 # grace seconds (timer runs at 2x).
 @onready var _col = $CollisionShape2D
 
 var _base_scale: Vector2 = Vector2.ONE
+var _glow: Sprite2D = null
+var _glow_base := 1.0
+var _flick_phase := 0.0
+var _flick_t := 0.0
 var _gameover_timer = 0.0
 var _hit_count = 0
 var _scale_timer = 0.0
@@ -58,24 +62,69 @@ func check_gameover(y: float, delta: float) -> bool:
 func get_gameover_timer_rate() -> float:
     return _gameover_timer / TIMER_GAMEOVER
 
+## One shared radial-glow texture for every shot's burn halo, drawn
+## once in code (white core fading out; the kind colour comes from the
+## glow sprite's modulate).
+static var _glow_tex: Texture2D = null
+
+static func glow_texture() -> Texture2D:
+    if _glow_tex != null:
+        return _glow_tex
+    var size = 128
+    var img = Image.create(size, size, false, Image.FORMAT_RGBA8)
+    var centre = Vector2(size, size) * 0.5
+    for y in size:
+        for x in size:
+            var d = Vector2(x, y).distance_to(centre) / (size * 0.5)
+            var a = clamp(1.0 - d, 0.0, 1.0)
+            img.set_pixel(x, y, Color(1, 1, 1, a * a))
+    _glow_tex = ImageTexture.create_from_image(img)
+    return _glow_tex
+
 func _ready() -> void:
-    gravity_scale = -1.0 # buoyant: shots float UP.
+    gravity_scale = -1.45 # buoyant, brisker climb (speed pass 2026-11-04).
+    linear_damp_mode = RigidBody2D.DAMP_MODE_REPLACE
+    linear_damp = 0.02 # low drag: higher top speed on the rise.
     _spr.texture = shot_texture(kind, id)
     var shape = CircleShape2D.new()
     shape.radius = RADII[id]
     _col.shape = shape
     _base_scale = _spr.scale
+    # Burn halo: an additive glow sprite behind the orb, tinted by kind
+    # (HOT blue / COOL red / WHITE white), flickering in _physics_process.
+    _glow = Sprite2D.new()
+    _glow.texture = glow_texture()
+    _glow.show_behind_parent = true
+    var mat = CanvasItemMaterial.new()
+    mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+    _glow.material = mat
+    var kind_cols = [Color(0.45, 0.65, 1.0), Color(1.0, 0.5, 0.4), Color(1.0, 0.98, 0.92)]
+    _glow.modulate = kind_cols[kind]
+    _glow_base = (RADII[id] * 2.0 * 2.55) / 128.0
+    _glow.scale = Vector2.ONE * _glow_base
+    add_child(_glow)
+    _flick_phase = randf() * TAU
 
 func _physics_process(delta: float) -> void:
-    # Spawn-pop scale animation.
+    # Spawn-pop scale animation (the glow flares with the same pop).
+    var pop := 1.0
     _spr.scale = _base_scale
     if _scale_timer > 0:
         _scale_timer -= delta
         var rate = _scale_timer / TIMER_SCALE
-        rate = 1 + 0.1 * Ease.back_out(1 - rate)
-        _spr.scale *= Vector2(rate, rate)
+        pop = 1 + 0.1 * Ease.back_out(1 - rate)
+        _spr.scale *= Vector2(pop, pop)
+    # Burn flicker: two detuned sines per shot (random phase) so no two
+    # shots pulse together - the halo breathes and the core shimmers.
+    _flick_t += delta
+    var fl = sin(_flick_t * 11.0 + _flick_phase) * 0.6 + sin(_flick_t * 23.7 + _flick_phase * 1.7) * 0.4
+    if _glow != null:
+        _glow.scale = Vector2.ONE * _glow_base * pop * (1.0 + 0.07 * fl)
+        var ga = 0.66 + 0.17 * fl + 0.02 * id # bigger shots burn a touch stronger.
+        _glow.modulate.a = clamp(ga, 0.25, 0.9)
     # Red flash while over the line.
-    _spr.modulate = Color.WHITE
+    var bright = 1.0 + 0.05 * fl
+    _spr.modulate = Color(bright, bright, bright)
     if _gameover_timer > 0:
         var rate = 1 - (_gameover_timer / TIMER_HIT)
         _gameover_timer -= delta
