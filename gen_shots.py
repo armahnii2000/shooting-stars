@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Shooting Stars sprites: glowing shot orbs (Hot=blue / Cool=red /
+"""Generate Shooting Stars sprites: glowing shot orbs (Hot=red / Cool=blue /
 White=neutral) for levels 1-11, plus a starfield background.
 Run: python3 gen_stars.py  (writes into assets/images/)"""
 import math, random
@@ -11,8 +11,8 @@ PAD = 10
 FONT = "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf"
 
 TYPES = {
-    "hot":   ((216, 236, 255), (58, 160, 255), (22, 99, 184)),
-    "cool":  ((255, 220, 212), (255, 90, 78), (184, 48, 36)),
+    "hot":   ((255, 220, 212), (255, 90, 78), (184, 48, 36)),
+    "cool":  ((216, 236, 255), (58, 160, 255), (22, 99, 184)),
     "white": ((255, 255, 255), (232, 236, 244), (154, 163, 181)),
 }
 
