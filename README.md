@@ -10,10 +10,10 @@ the run ends — **OVERRUN**.
 
 ## The shots
 
-Every shot is one of three kinds, named from real star physics:
+Every shot is one of three kinds, coloured the way players expect:
 
-- **HOT** (blue) — real hot stars burn blue
-- **COOL** (red) — real cool stars glow red
+- **HOT** (red) — the colour everyone reads as hot
+- **COOL** (blue) — the colour everyone reads as cool
 - **WHITE** (white) — balanced, sun-like
 
 Merge rules:
