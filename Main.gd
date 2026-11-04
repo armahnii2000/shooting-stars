@@ -178,7 +178,7 @@ func _update_ui(delta: float) -> void:
     if Common.disp_add_score > 0:
         _ui_score_sub.visible = true
         _ui_score_sub.text = "(+%d)" % Common.disp_add_score
-    # Balance readout: HOT (blue, Left) vs COOL (red, Right).
+    # Balance readout: HOT (red, Left) vs COOL (blue, Right).
     var bal = Common.hot_pts - Common.cool_pts
     var bal_txt = ("+" if bal > 0 else "") + str(bal)
     _ui_dbg_label.text = "HOT %d    COOL %d    BALANCE %s" % [Common.hot_pts, Common.cool_pts, bal_txt]
