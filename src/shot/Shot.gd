@@ -91,14 +91,14 @@ func _ready() -> void:
     _col.shape = shape
     _base_scale = _spr.scale
     # Burn halo: an additive glow sprite behind the orb, tinted by kind
-    # (HOT blue / COOL red / WHITE white), flickering in _physics_process.
+    # (HOT red / COOL blue / WHITE white), flickering in _physics_process.
     _glow = Sprite2D.new()
     _glow.texture = glow_texture()
     _glow.show_behind_parent = true
     var mat = CanvasItemMaterial.new()
     mat.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
     _glow.material = mat
-    var kind_cols = [Color(0.45, 0.65, 1.0), Color(1.0, 0.5, 0.4), Color(1.0, 0.98, 0.92)]
+    var kind_cols = [Color(1.0, 0.5, 0.4), Color(0.45, 0.65, 1.0), Color(1.0, 0.98, 0.92)]
     _glow.modulate = kind_cols[kind]
     _glow_base = (RADII[id] * 2.0 * 2.55) / 128.0
     _glow.scale = Vector2.ONE * _glow_base
