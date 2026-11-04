@@ -70,7 +70,7 @@ func create_shot(p_id: int, p_kind: int, is_deferred: bool = false, particle_pos
     else:
         layer.add_child(shot)
         if launch:
-            shot.linear_velocity = Vector2(0, -160)
+            shot.linear_velocity = Vector2(0, -340) # snappier launch (George: speed the game up, 2026-11-04)
     return shot
 
 func update_shot_timer(delta: float) -> void:
