@@ -164,8 +164,8 @@ on their own, so dropping a single 2 block eventually won the chase).
   40) was unclear in play — one early merge painted the whole bar one
   colour and the needle barely moved (George, 2026-11-03). Current
   version is a **centre-out meter**: the centre mark is balanced;
-  colour grows out of the centre toward the leading side (blue left,
-  red right) and how far it reaches IS the imbalance, full reach at
+  colour grows out of the centre toward the leading side (red left,
+  blue right) and how far it reaches IS the imbalance, full reach at
   |imbalance| 20; the white needle sits at the tip of the colour.
 - Imbalance itself still steers the chase exactly as before (drift,
   wasted boost, missed shots) — only the board picture changed.
@@ -259,7 +259,7 @@ same core):
 
 George called the canvas prototype boring and the hand-drawn stars insect-like, and directed: adopt an engine + existing base, free resources only. Fruit Merge King (web/JS) is the LOOK reference only - its repo has no LICENSE file and JS cannot run in Godot. The Godot base is gd_suikagame (MIT, (c) 2023 syun), adapted at ~/workspace/shooting-stars-godot.
 
-STAR CATEGORIES (decided by Cosmo at George's delegation, from real star physics): blue = HOT stars (real hot stars burn blue), red = COOL stars (real cool stars glow red), white = WHITE stars (balanced, sun-like). The fiction fits the merge rules: HOT + COOL cancel into a balanced WHITE star; WHITE joins either side without tipping the balance.
+STAR CATEGORIES: red = HOT stars, blue = COOL stars, white = WHITE stars (balanced, sun-like). (Originally set from real star physics — blue hot, red cool — and REVERSED by George 2026-11-04: audience intuition wins; for normal players hot reads red and cool reads blue.) The fiction fits the merge rules: HOT + COOL cancel into a balanced WHITE star; WHITE joins either side without tipping the balance.
 
 Milestone 1 DONE and screenshot-verified (Godot 4.4.1, VM + Xvfb): inverted board (launcher at bottom, buoyant stars pile at the ceiling, red danger line near the launcher), one generic star scene driven by data (level + kind), full merge table live (same-kind scores its side; HOT+COOL and WHITE merges are total-only; 11+11 clears for 22), HOT/COOL/BALANCE readout, white-star evolution column, starfield backdrop, FMK-style radii growth. NOT yet in: the villain chase scene, FMK squash/shockwave juice, full-game game-over bot test.
 
