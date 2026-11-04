@@ -38,7 +38,7 @@ moving forward faster* — never render the villain sliding backwards.
   merge — a cancelling merge — is a sure shot: it leaves from the line and
   steers, so it cannot miss.)
 - Show the balance as a **centre-out bar**: centre = balanced, colour grows
-  toward the leading side (blue left for HOT, red right for COOL), full
+  toward the leading side (red left for HOT, blue right for COOL), full
   reach at |balance| 20, white needle at the tip. The existing text readout
   may stay as a supplement, not a replacement.
 - The chase is **endless**: there is no finish line and the villain never
