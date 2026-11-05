@@ -293,3 +293,18 @@ George, 2026-11-03: "hold off on the chase." The chase is NOT built in any mainl
 
 ### CC-CLI model comparison (2026-11-04)
 George will run a prompt through CC-CLI's A/B models against the public repo: implement the chase to the section-6 spec with bot-measured acceptance (catch at 450-550 points; idle play never closes the gap). The prompt lives in the repo as CC-CLI-PROMPT.md. This is an evaluation exercise - it does not lift the hold on the mainline build; if a model produces a good chase, it becomes a reference implementation for George to judge.
+
+## Update 2026-11-05 - GDevelop bake-off Round 1: verdicts and the Round 2 direction
+
+On 2026-11-04/05 all five bench agents (Claude Code, Codex, Antigravity, Muse Code, Grok Build) each built their own GDevelop interpretation of Shooting Stars from one open creative brief (Round 1: broad creative freedom). George played all five side by side on a single tabbed page and judged them on 2026-11-05. His verdicts:
+
+- **Winner: Claude's interpretation, clearly.** Best music and best physics of the five; its particle effects were decent too. Claude's build is the reference standard and the Round 2 base.
+- **Graft from Grok: rotate and shift controls for launching the star** - the player can rotate the launch angle and shift the launcher before firing, on top of aim-and-release.
+- **Graft from Agy (Antigravity): its particle effects** - per-kind merge burst emitters (HotBurst / CoolBurst / WhiteBurst) and the general particle richness. Round 2 target: Claude's decent particles raised to Agy's level.
+- **Graft from Codex: its HUD and game info** - the clearest presentation of scores, balance, next-shot previews, pause/help. Round 2 adopts Codex's HUD/information standard.
+- **Muse Code's interpretation contributes nothing George wants and is out.** Its build is preserved for the record only.
+
+### Round 2 direction (set by George, 2026-11-05)
+Start from Claude's GDevelop build. Keep its music and physics tuning intact - they are the standard the others are measured against. Add exactly the three grafts above. Everything else about the game's identity is unchanged: inverted board, shots 1-11 in HOT (red) / COOL (blue) / WHITE, the merge table, centre-out balance bar, OVERRUN, pieces called "shots".
+
+Preservation: every seat's project is committed in its own git repo on George's Mac (~/shooting-stars-gdevelop-bakeoff/<seat>), and the donor projects plus graft notes are bundled at ~/workspace/shooting-stars-gdevelop-bakeoff/round2-donors/ so the graft sources survive even if a seat folder is cleaned. The Round 2 graft brief is drafted at ~/workspace/shooting-stars-gdevelop-bakeoff/ROUND2-BRIEF.md; it launches only on George's word.
